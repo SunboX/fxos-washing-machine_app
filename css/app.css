@@ -77,3 +77,55 @@ h1 {
     text-align: center;
     font-size: 5vw;
 }
+#duration {
+    position: absolute;
+    left: 10vw;
+    top: 30vh;
+    border-radius: 40vw;
+    background-color: #00AACC;
+    width: 80vw;
+    height: 80vw;
+}
+#duration svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: rotate(-90deg);
+    margin: -4.5vw;
+}
+#duration-circle {
+    stroke-dasharray: 440;
+    stroke-dashoffset: 160;
+    stroke: white;
+    fill: none;
+    stroke-width: 2vw;
+}
+#duration-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 80vw;
+    height: 80vw;
+    line-height: 80vw;
+    font-family: Arial;
+    color: white;
+    font-size: 6vw;
+}
+#duration-hours-left,
+#duration-minutes-left {
+    font-size: 20vw;
+}
+#duration-left-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 80vw;
+    height: 80vw;
+    line-height: 80vw;
+    font-family: Arial;
+    color: white;
+    font-size: 6vw;
+    margin-top: 20vw;
+}
