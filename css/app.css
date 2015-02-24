@@ -18,7 +18,7 @@ body {
 }
 .icon {
     fill: white;
-    border-radius: 20vw;
+    border-radius: 50%;
     background-color: #00AACC;
     padding: 20px;
     width: 20vw;
@@ -42,22 +42,22 @@ body {
 .icon:hover {
     opacity: 0.8;
 }
-#icon-1 {
+.icon-1 {
     position: absolute;
     left: 10vw;
     top: 20vh;
 }
-#icon-2 {
+.icon-2 {
     position: absolute;
     left: 60vw;
     top: 30vh;
 }
-#icon-3 {
+.icon-3 {
     position: absolute;
     left: 20vw;
     top: 50vh;
 }
-#icon-4 {
+.icon-4 {
     position: absolute;
     left: 60vw;
     top: 70vh;
