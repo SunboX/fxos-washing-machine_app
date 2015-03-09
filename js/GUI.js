@@ -2,28 +2,28 @@ wm.GUI = (function () {
 
     'use strict';
     
-    var dom = {};
+    let dom = {};
 
-    var pages = {
+    let pages = {
         SETTINGS: 0,
-        TYPE_OF_CLOTHES: 1,
-        COLOR_OF_CLOTHES: 2,
+        LOAD_TYPE: 1,
+        LOAD_COLOR: 2,
         START: 3,
         WASHING: 4
     };
-
-    var showPage = function (page) {
+    
+    let showPage = function (page) {
         switch (page) {
         case pages.SETTING:
             break;
 
-        case pages.TYPE_OF_CLOTHES:
+        case pages.LOAD_TYPE:
             dom.typeOfClothesPage.hidden = false;
             dom.colorOfClothesPage.hidden = true;
             dom.washingPage.hidden = true;
             break;
 
-        case pages.COLOR_OF_CLOTHES:
+        case pages.LOAD_COLOR:
             break;
 
         case pages.START:
@@ -34,31 +34,37 @@ wm.GUI = (function () {
         }
     };
 
-    var attachEvents = function () {
-        function reqListener() {
-            console.log(this.responseText);
-        }
-
-        var oReq = new XMLHttpRequest();
-        oReq.onload = reqListener;
-
+    let attachEvents = function () {
         dom.typeOfClothesPage.querySelector('.icon-1-1').addEventListener('click', function () {
-            oReq.open('get', 'http://192.168.1.139:8080/gpio_set_pin_mode?pin2=toggle', true);
-            oReq.send();
+            wm.WashingMachineApi.setLoadType(wm.WashingMachineApi.loadType.HEAVY);
         });
-
         dom.typeOfClothesPage.querySelector('.icon-1-2').addEventListener('click', function () {
-            oReq.open('get', 'http://192.168.1.139:8080/gpio_set_pin_mode?pin3=toggle', true);
-            oReq.send();
+            wm.WashingMachineApi.setLoadType(wm.WashingMachineApi.loadType.NORMAL);
+        });
+        dom.typeOfClothesPage.querySelector('.icon-1-3').addEventListener('click', function () {
+            wm.WashingMachineApi.setLoadType(wm.WashingMachineApi.loadType.DELICATES);
+        });
+        dom.typeOfClothesPage.querySelector('.icon-1-4').addEventListener('click', function () {
+            wm.WashingMachineApi.setLoadType(wm.WashingMachineApi.loadType.WOOL);
         });
     };
 
-    var init = function () {
+    let init = function () {
         dom.typeOfClothesPage = document.getElementById('type-of-clothes-page');
         dom.colorOfClothesPage = document.getElementById('color-of-clothes-page');
         dom.washingPage = document.getElementById('washing-page');
+        
         attachEvents();
-        dom.typeOfClothesPage.hidden = false;
+        
+        console.log('init');
+        
+        wm.WashingMachineApi.getState().then(response => {
+            switch (response.state){
+                case wm.WashingMachineApi.state.IDLE:
+                    dom.typeOfClothesPage.hidden = false;
+                    break;
+            }
+        });
     };
 
     // public
