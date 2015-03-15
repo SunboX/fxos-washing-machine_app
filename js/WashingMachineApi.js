@@ -1,7 +1,7 @@
 wm.WashingMachineApi = (function () {
 
     'use strict';
-    
+
     let state = {
         IDLE: 'IDLE',
         COLLECTING_DATA: 'COLLECTING_DATA',
@@ -21,11 +21,13 @@ wm.WashingMachineApi = (function () {
 
     let getUrl = function (url) {
         return new Promise(function (resolve, reject) {
-            var req = new XMLHttpRequest();
+            let req = new XMLHttpRequest({
+                mozSystem: true
+            });
             req.open('GET', url, true);
             req.onload = function () {
                 if (req.status == 200) {
-                    resolve(JSON.parse(req.response);)
+                    resolve(JSON.parse(req.response));
                 } else {
                     reject(Error(req.statusText));
                 }
@@ -39,23 +41,26 @@ wm.WashingMachineApi = (function () {
 
     let getProgramUuid = function () {
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.pathname = '/info/program-uuid';
-        return getUrl(url.toString()).then(function(response) {
+        url.parts.pathname = '/info/program-uuid';
+        return getUrl(url.toString()).then(function (response) {
             currentProgramUuid = response.programUuid;
-        };
+        });
     };
 
     let getState = function () {
+        console.log('getState');
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.pathname = '/info/state';
+        url.parts.pathname = '/info/state';
+        console.log(url.toString());
         return getUrl(url.toString());
     };
 
-    let setLoadType = function (type) {
+    let setLoadType = function (programUuid, type) {
         // TODO: validate type
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.pathname = '/info/type-of-load';
+        url.parts.pathname = '/info/type-of-load';
         let query = {
+            programUuid: programUuid,
             type: type
         };
         url.parts.query = wm.URI.serialize(query);

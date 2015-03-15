@@ -12,9 +12,9 @@ wm.URI = (function () {
         var query,
             parts = this.parts,
             result;
-
-        if (this.protocol) {
-            result = this.protocol + '://';
+        
+        if (parts.protocol) {
+            result = parts.protocol + '://';
         } else {
             result = '//'; // No protocoll, use the Protocol-relative URL
         }
@@ -105,7 +105,7 @@ wm.URI = (function () {
                     encodeURIComponent(k) + '=' + encodeURIComponent(v));
             }
         }
-        return str.join("&");
+        return str.join('&');
     };
 
     // static
