@@ -17,6 +17,12 @@ wm.WashingMachineApi = (function () {
         WOOL: 'WOOL'
     };
 
+    let loadColor = {
+        WHITE: 'WHITE',
+        COLORED: 'COLORED',
+        BLACK: 'BLACK'
+    };
+
     let currentProgramUuid = null;
 
     let getUrl = function (url) {
@@ -67,13 +73,34 @@ wm.WashingMachineApi = (function () {
         return getUrl(url.toString());
     };
 
+    let setLoadColor = function (programUuid, color) {
+        // TODO: validate color
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/info/color-of-load';
+        let query = {
+            programUuid: programUuid,
+            color: color
+        };
+        url.parts.query = wm.URI.serialize(query);
+        return getUrl(url.toString());
+    };
+
+    let stop = function (programUuid, color) {
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/stop';
+        return getUrl(url.toString());
+    };
+
     // public
     return {
         getProgramUuid: getProgramUuid,
         getState: getState,
         state: state,
         loadType: loadType,
-        setLoadType: setLoadType
+        setLoadType: setLoadType,
+        loadColor: loadColor,
+        setLoadColor: setLoadColor,
+        stop: stop
     };
 
 })();
