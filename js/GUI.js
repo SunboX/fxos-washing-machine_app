@@ -58,7 +58,9 @@ wm.GUI = (function () {
                 showPage(pages.LOAD_TYPE);
                 break;
             case wm.WashingMachineApi.state.COLLECTING_DATA:
-                if (response.missingData.indexOf('LOAD_COLOR') > -1) {
+                if (response.missingData.indexOf('LOAD_TYPE') > -1) {
+                    showPage(pages.LOAD_TYPE);
+                } else if (response.missingData.indexOf('LOAD_COLOR') > -1) {
                     showPage(pages.LOAD_COLOR);
                 } else {
                     showPage(pages.START);
@@ -69,6 +71,10 @@ wm.GUI = (function () {
     };
 
     let attachEvents = function () {
+        dom.settings.addEventListener('click', function () {
+            location.reload();
+        });
+
         // Type of clothes page
         dom.typeOfClothesPage.querySelector('.icon-1-1').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadType(programUuid, wm.WashingMachineApi.loadType.HEAVY).then(response => {
@@ -121,14 +127,14 @@ wm.GUI = (function () {
                 }
             }).catch(handleException);
         });
-        
+
         // Washing page
         document.getElementById('icon-stop').addEventListener('click', function () {
             wm.WashingMachineApi.stop().then(response => {
                 if (response.success) {
                     checkState();
                 }
-            }).catch(handleException);
+            }).then(wm.DataServices.provideOpenData).catch(handleException);
         });
     };
 
@@ -136,6 +142,8 @@ wm.GUI = (function () {
         dom.typeOfClothesPage = document.getElementById('type-of-clothes-page');
         dom.colorOfClothesPage = document.getElementById('color-of-clothes-page');
         dom.washingPage = document.getElementById('washing-page');
+
+        dom.settings = document.getElementById('icon-settings');
 
         attachEvents();
         checkState();

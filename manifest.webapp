@@ -17,6 +17,9 @@
   "permissions": {
     "systemXHR": {
       "description": "Required to load remote content"
+    },
+    "geolocation": {
+      "description": "Marking out user location"
     }
   },
   "installs_allowed_from": [

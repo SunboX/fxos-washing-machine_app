@@ -43,13 +43,14 @@ wm.WashingMachineApi = (function () {
             };
             req.send();
         });
-    }
+    };
 
     let getProgramUuid = function () {
         let url = wm.URI.parse(wm.Config.washingMachineApi);
         url.parts.pathname = '/info/program-uuid';
         return getUrl(url.toString()).then(function (response) {
             currentProgramUuid = response.programUuid;
+            return response;
         });
     };
 
@@ -58,6 +59,42 @@ wm.WashingMachineApi = (function () {
         let url = wm.URI.parse(wm.Config.washingMachineApi);
         url.parts.pathname = '/info/state';
         console.log(url.toString());
+        return getUrl(url.toString());
+    };
+
+    let setWaterHardness = function (programUuid, waterHardness) {
+        // TODO: validate waterHardness
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/info/water-hardness';
+        let query = {
+            programUuid: programUuid,
+            waterHardness: waterHardness
+        };
+        url.parts.query = wm.URI.serialize(query);
+        return getUrl(url.toString());
+    };
+    
+    let setWashingPowder = function (programUuid, washingPowder) {
+        // TODO: validate washingPowder
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/info/washing-powder';
+        let query = {
+            programUuid: programUuid,
+            washingPowder: washingPowder
+        };
+        url.parts.query = wm.URI.serialize(query);
+        return getUrl(url.toString());
+    };
+    
+    let setFabricConditioner = function (programUuid, fabricConditioner) {
+        // TODO: validate washingPowder
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/info/fabric-conditioner';
+        let query = {
+            programUuid: programUuid,
+            fabricConditioner: fabricConditioner
+        };
+        url.parts.query = wm.URI.serialize(query);
         return getUrl(url.toString());
     };
 
@@ -96,6 +133,7 @@ wm.WashingMachineApi = (function () {
         getProgramUuid: getProgramUuid,
         getState: getState,
         state: state,
+        setWaterHardness: setWaterHardness,
         loadType: loadType,
         setLoadType: setLoadType,
         loadColor: loadColor,
