@@ -22,6 +22,11 @@ wm.WashingMachineApi = (function () {
         COLORED: 'COLORED',
         BLACK: 'BLACK'
     };
+    
+    let washingPowderType = {
+        FULL: 'FULL',
+        COLOR: 'COLOR'
+    };
 
     let currentProgramUuid = null;
 
@@ -47,7 +52,7 @@ wm.WashingMachineApi = (function () {
 
     let getProgramUuid = function () {
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/program-uuid';
+        url.parts.pathname = '/data/program-uuid';
         return getUrl(url.toString()).then(function (response) {
             currentProgramUuid = response.programUuid;
             return response;
@@ -57,7 +62,7 @@ wm.WashingMachineApi = (function () {
     let getState = function () {
         console.log('getState');
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/state';
+        url.parts.pathname = '/data/state';
         console.log(url.toString());
         return getUrl(url.toString());
     };
@@ -65,7 +70,7 @@ wm.WashingMachineApi = (function () {
     let setWaterHardness = function (programUuid, waterHardness) {
         // TODO: validate waterHardness
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/water-hardness';
+        url.parts.pathname = '/data/water-hardness';
         let query = {
             programUuid: programUuid,
             waterHardness: waterHardness
@@ -77,7 +82,7 @@ wm.WashingMachineApi = (function () {
     let setWashingPowder = function (programUuid, washingPowder) {
         // TODO: validate washingPowder
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/washing-powder';
+        url.parts.pathname = '/data/washing-powder';
         let query = {
             programUuid: programUuid,
             washingPowder: washingPowder
@@ -89,7 +94,7 @@ wm.WashingMachineApi = (function () {
     let setFabricConditioner = function (programUuid, fabricConditioner) {
         // TODO: validate washingPowder
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/fabric-conditioner';
+        url.parts.pathname = '/data/fabric-conditioner';
         let query = {
             programUuid: programUuid,
             fabricConditioner: fabricConditioner
@@ -101,7 +106,7 @@ wm.WashingMachineApi = (function () {
     let setLoadType = function (programUuid, type) {
         // TODO: validate type
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/type-of-load';
+        url.parts.pathname = '/data/type-of-load';
         let query = {
             programUuid: programUuid,
             type: type
@@ -113,7 +118,7 @@ wm.WashingMachineApi = (function () {
     let setLoadColor = function (programUuid, color) {
         // TODO: validate color
         let url = wm.URI.parse(wm.Config.washingMachineApi);
-        url.parts.pathname = '/info/color-of-load';
+        url.parts.pathname = '/data/color-of-load';
         let query = {
             programUuid: programUuid,
             color: color
@@ -122,7 +127,13 @@ wm.WashingMachineApi = (function () {
         return getUrl(url.toString());
     };
 
-    let stop = function (programUuid, color) {
+    let start = function (programUuid) {
+        let url = wm.URI.parse(wm.Config.washingMachineApi);
+        url.parts.pathname = '/start';
+        return getUrl(url.toString());
+    };
+
+    let stop = function (programUuid) {
         let url = wm.URI.parse(wm.Config.washingMachineApi);
         url.parts.pathname = '/stop';
         return getUrl(url.toString());
@@ -134,10 +145,14 @@ wm.WashingMachineApi = (function () {
         getState: getState,
         state: state,
         setWaterHardness: setWaterHardness,
+        setWashingPowder: setWashingPowder,
+        setFabricConditioner: setFabricConditioner,
         loadType: loadType,
         setLoadType: setLoadType,
         loadColor: loadColor,
         setLoadColor: setLoadColor,
+        washingPowderType: washingPowderType,
+        start: start,
         stop: stop
     };
 

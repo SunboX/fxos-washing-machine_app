@@ -8,8 +8,11 @@ html,
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
     height: 100%;
+    font-size: 10px;
     overflow: hidden;
+    font-family: Arial;
 }
 
 body {
@@ -23,7 +26,6 @@ body {
 }
 
 h1 {
-    font-family: Arial;
     color: white;
     width: 100%;
     text-align: center;
@@ -103,7 +105,7 @@ h1 {
     top: 70vh;
 }
 
-#icon-stop {
+.icon-stop {
     position: absolute;
     left: 40vw;
     top: 82vh;
@@ -115,11 +117,11 @@ h1 {
     height: 10vw;
 }
 
-#icon-stop:active {
+.icon-stop:active {
     opacity: 0.8;
 }
 
-#icon-settings {
+.icon-settings {
     position: absolute;
     left: 10px;
     bottom: 10px;
@@ -147,8 +149,6 @@ h1 {
 }
 
 #duration-circle {
-    stroke-dasharray: 440;
-    stroke-dashoffset: 160;
     stroke: white;
     fill: none;
     stroke-width: 2vw;
@@ -162,7 +162,6 @@ h1 {
     width: 80vw;
     height: 80vw;
     line-height: 80vw;
-    font-family: Arial;
     color: white;
     font-size: 6vw;
 }
@@ -180,8 +179,73 @@ h1 {
     width: 80vw;
     height: 80vw;
     line-height: 80vw;
-    font-family: Arial;
     color: white;
     font-size: 6vw;
     margin-top: 20vw;
+}
+
+#start-button {
+    position: absolute;
+    left: 25vw;
+    top: 48vh;
+    border-radius: 50vw;
+    background-color: #00AACC;
+    width: 50vw;
+    height: 50vw;
+}
+
+#start-button-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 50vw;
+    height: 50vw;
+    line-height: 50vw;
+    color: white;
+    font-size: 12vw;
+}
+
+#connecting-button {
+    position: absolute;
+    left: 20vw;
+    top: 30vh;
+    border-radius: 60vw;
+    background-color: #00AACC;
+    width: 60vw;
+    height: 60vw;
+}
+
+#connecting-button-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 60vw;
+    height: 60vw;
+    line-height: 60vw;
+    color: white;
+    font-size: 7vw;
+}
+
+ul li,
+ul li > a,
+ul li > label {
+    min-height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+ul li {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0px 1.5rem;
+    border-bottom: 0.1rem solid #666;
+    color: #666;
+}
+
+ul {
+    list-style: outside none none;
+    background: rgba(255, 255, 255, 0.8);
 }

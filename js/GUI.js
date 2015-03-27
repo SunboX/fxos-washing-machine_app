@@ -16,27 +16,39 @@ wm.GUI = (function () {
     let showPage = function (page) {
         switch (page) {
         case pages.SETTING:
+            dom.connectingPage.hidden = true;
             break;
 
         case pages.LOAD_TYPE:
+            dom.connectingPage.hidden = true;
             dom.typeOfClothesPage.hidden = false;
             dom.colorOfClothesPage.hidden = true;
+            dom.startPage.hidden = true;
             dom.washingPage.hidden = true;
             break;
 
         case pages.LOAD_COLOR:
+            dom.connectingPage.hidden = true;
             dom.typeOfClothesPage.hidden = true;
             dom.colorOfClothesPage.hidden = false;
+            dom.startPage.hidden = true;
             dom.washingPage.hidden = true;
             break;
 
         case pages.START:
+            dom.connectingPage.hidden = true;
             dom.typeOfClothesPage.hidden = true;
             dom.colorOfClothesPage.hidden = true;
-            dom.washingPage.hidden = false;
+            dom.startPage.hidden = false;
+            dom.washingPage.hidden = true;
             break;
 
         case pages.WASHING:
+            dom.connectingPage.hidden = true;
+            dom.typeOfClothesPage.hidden = true;
+            dom.colorOfClothesPage.hidden = true;
+            dom.startPage.hidden = true;
+            dom.washingPage.hidden = false;
             break;
         }
     };
@@ -66,14 +78,20 @@ wm.GUI = (function () {
                     showPage(pages.START);
                 }
                 break;
+            case wm.WashingMachineApi.state.READY:
+                showPage(pages.START);
+                break;
             }
         });
     };
 
     let attachEvents = function () {
-        dom.settings.addEventListener('click', function () {
-            location.reload();
-        });
+        let settingButtons = document.querySelectorAll('.icon-settings');
+        for (let i = 0, len = settingButtons.length; i < len; i++) {
+            settingButtons[i].addEventListener('click', function () {
+                location.reload();
+            });
+        }
 
         // Type of clothes page
         dom.typeOfClothesPage.querySelector('.icon-1-1').addEventListener('click', function () {
@@ -128,22 +146,57 @@ wm.GUI = (function () {
             }).catch(handleException);
         });
 
-        // Washing page
-        document.getElementById('icon-stop').addEventListener('click', function () {
-            wm.WashingMachineApi.stop().then(response => {
+        // Start
+        document.getElementById('start-button').addEventListener('click', function () {
+            showPage(pages.WASHING);
+            wm.WashingMachineApi.start(programUuid).then(response => {
                 if (response.success) {
-                    checkState();
+                    let minutesLeft = 120;
+                    let updateTimeLeft = function(){
+                        dom.durationCircle.style.strokeDashoffset = (dom.durationCircle.style.strokeDasharray / 120) * minutesLeft;
+                        dom.durationHoursLeft.textContent = Math.floor(minutesLeft / 60);
+                        let minutes = minutesLeft - Math.floor(minutesLeft / 60) * 60;
+                        dom.durationMinutesLeft.textContent = minutes < 10 ? '0' + minutes : minutes;
+                        minutesLeft--;
+                    };
+
+                    let timerInterval = setInterval(() => {
+                        if (minutesLeft > 0) {
+                            updateTimeLeft();
+                        } else {
+                            clearInterval(timerInterval);
+                            dom.durationHoursLeft.textContent = 0;
+                            dom.durationMinutesLeft.textContent = 0;
+                        }
+                    }, 60000);
+                    updateTimeLeft();
                 }
-            }).then(wm.DataServices.provideOpenData).catch(handleException);
+            }).catch(handleException);
         });
+
+        let stopButtons = document.querySelectorAll('.icon-stop');
+        for (let i = 0, len = stopButtons.length; i < len; i++) {
+            stopButtons[i].addEventListener('click', function () {
+                wm.WashingMachineApi.stop().then(response => {
+                    if (response.success) {
+                        checkState();
+                    }
+                }).then(wm.DataServices.provideOpenData).catch(handleException);
+            });
+        }
     };
 
     let init = function () {
+        dom.connectingPage = document.getElementById('connecting-page');
         dom.typeOfClothesPage = document.getElementById('type-of-clothes-page');
         dom.colorOfClothesPage = document.getElementById('color-of-clothes-page');
+        dom.startPage = document.getElementById('start-page');
         dom.washingPage = document.getElementById('washing-page');
+        dom.durationCircle = document.getElementById('duration-circle');
+        dom.durationHoursLeft = document.getElementById('duration-hours-left');
+        dom.durationMinutesLeft = document.getElementById('duration-minutes-left');
 
-        dom.settings = document.getElementById('icon-settings');
+        dom.durationCircle.style.strokeDasharray = Math.PI * parseInt(dom.durationCircle.getAttribute('r'), 10) * 2;
 
         attachEvents();
         checkState();
