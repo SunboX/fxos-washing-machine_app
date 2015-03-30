@@ -249,3 +249,12 @@ ul {
     list-style: outside none none;
     background: rgba(255, 255, 255, 0.8);
 }
+
+#ip {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 10px;
+    font-family: monospace;
+    color: #000;
+}
