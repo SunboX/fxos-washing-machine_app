@@ -59,10 +59,10 @@ https://etherpad.mozilla.org/yhltaFmC1r
                 wm.WashingMachineApi.setWaterHardness(programUuidResponse.programUuid, waterResponse.water.hardness),
                 wm.WashingMachineApi.setWashingPowder(programUuidResponse.programUuid, {
                     type: wm.WashingMachineApi.washingPowderType.FULL,
-                    dosis: 20 // TODO: fetch from WebService - in ml per 1 kg of "clothes"
+                    dosis: 20 // TODO: fetch from WebService - in ml per 1 kg of "laundry"
                 }),
                 wm.WashingMachineApi.setFabricConditioner(programUuidResponse.programUuid, {
-                    dosis: 4 // TODO: fetch from WebService - in ml per 1 kg of "clothes"
+                    dosis: 4 // TODO: fetch from WebService - in ml per 1 kg of "laundry"
                 })
             ]);
 

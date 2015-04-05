@@ -21,32 +21,32 @@ wm.GUI = (function () {
 
         case pages.LOAD_TYPE:
             dom.connectingPage.hidden = true;
-            dom.typeOfClothesPage.hidden = false;
-            dom.colorOfClothesPage.hidden = true;
+            dom.typeOfLaundryPage.hidden = false;
+            dom.colorOfLaundryPage.hidden = true;
             dom.startPage.hidden = true;
             dom.washingPage.hidden = true;
             break;
 
         case pages.LOAD_COLOR:
             dom.connectingPage.hidden = true;
-            dom.typeOfClothesPage.hidden = true;
-            dom.colorOfClothesPage.hidden = false;
+            dom.typeOfLaundryPage.hidden = true;
+            dom.colorOfLaundryPage.hidden = false;
             dom.startPage.hidden = true;
             dom.washingPage.hidden = true;
             break;
 
         case pages.START:
             dom.connectingPage.hidden = true;
-            dom.typeOfClothesPage.hidden = true;
-            dom.colorOfClothesPage.hidden = true;
+            dom.typeOfLaundryPage.hidden = true;
+            dom.colorOfLaundryPage.hidden = true;
             dom.startPage.hidden = false;
             dom.washingPage.hidden = true;
             break;
 
         case pages.WASHING:
             dom.connectingPage.hidden = true;
-            dom.typeOfClothesPage.hidden = true;
-            dom.colorOfClothesPage.hidden = true;
+            dom.typeOfLaundryPage.hidden = true;
+            dom.colorOfLaundryPage.hidden = true;
             dom.startPage.hidden = true;
             dom.washingPage.hidden = false;
             break;
@@ -93,29 +93,29 @@ wm.GUI = (function () {
             });
         }
 
-        // Type of clothes page
-        dom.typeOfClothesPage.querySelector('.icon-1-1').addEventListener('click', function () {
+        // Type of laundry page
+        dom.typeOfLaundryPage.querySelector('.icon-1-1').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadType(programUuid, wm.WashingMachineApi.loadType.HEAVY).then(response => {
                 if (response.success) {
                     checkState();
                 }
             }).catch(handleException);
         });
-        dom.typeOfClothesPage.querySelector('.icon-1-2').addEventListener('click', function () {
+        dom.typeOfLaundryPage.querySelector('.icon-1-2').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadType(programUuid, wm.WashingMachineApi.loadType.NORMAL).then(response => {
                 if (response.success) {
                     checkState();
                 }
             }).catch(handleException);
         });
-        dom.typeOfClothesPage.querySelector('.icon-1-3').addEventListener('click', function () {
+        dom.typeOfLaundryPage.querySelector('.icon-1-3').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadType(programUuid, wm.WashingMachineApi.loadType.DELICATES).then(response => {
                 if (response.success) {
                     checkState();
                 }
             }).catch(handleException);
         });
-        dom.typeOfClothesPage.querySelector('.icon-1-4').addEventListener('click', function () {
+        dom.typeOfLaundryPage.querySelector('.icon-1-4').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadType(programUuid, wm.WashingMachineApi.loadType.WOOL).then(response => {
                 if (response.success) {
                     checkState();
@@ -123,22 +123,22 @@ wm.GUI = (function () {
             }).catch(handleException);
         });
 
-        // Color of clothes page
-        dom.colorOfClothesPage.querySelector('.icon-2-1').addEventListener('click', function () {
+        // Color of laundry page
+        dom.colorOfLaundryPage.querySelector('.icon-2-1').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadColor(programUuid, wm.WashingMachineApi.loadColor.WHITE).then(response => {
                 if (response.success) {
                     checkState();
                 }
             }).catch(handleException);
         });
-        dom.colorOfClothesPage.querySelector('.icon-2-2').addEventListener('click', function () {
+        dom.colorOfLaundryPage.querySelector('.icon-2-2').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadColor(programUuid, wm.WashingMachineApi.loadColor.BLACK).then(response => {
                 if (response.success) {
                     checkState();
                 }
             }).catch(handleException);
         });
-        dom.colorOfClothesPage.querySelector('.icon-2-3').addEventListener('click', function () {
+        dom.colorOfLaundryPage.querySelector('.icon-2-3').addEventListener('click', function () {
             wm.WashingMachineApi.setLoadColor(programUuid, wm.WashingMachineApi.loadColor.COLORED).then(response => {
                 if (response.success) {
                     checkState();
@@ -188,8 +188,8 @@ wm.GUI = (function () {
 
     let init = function () {
         dom.connectingPage = document.getElementById('connecting-page');
-        dom.typeOfClothesPage = document.getElementById('type-of-clothes-page');
-        dom.colorOfClothesPage = document.getElementById('color-of-clothes-page');
+        dom.typeOfLaundryPage = document.getElementById('type-of-laundry-page');
+        dom.colorOfLaundryPage = document.getElementById('color-of-laundry-page');
         dom.startPage = document.getElementById('start-page');
         dom.washingPage = document.getElementById('washing-page');
         dom.durationCircle = document.getElementById('duration-circle');
