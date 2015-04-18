@@ -1,3 +1,13 @@
+# Work in progress
+
+## TODO
+
+* Add Settigs menu
+* Managing the connection to a washing machine (QR code scanning, handshake)
+* Get used detergent info and provide it to the washing machine
+  * First stage: manual input
+  * Second stage: scanning the GTIN/EAN code and recieve the info from an Detergents OpenData API
+
 ## Screenshots
 
 <img src="https://raw.githubusercontent.com/SunboX/fxos-washing-machine_app/master/screenshots/2015-02-24-21-33-23.png" width="300"/> 
