@@ -38,12 +38,6 @@ wm.DataServices = (function () {
         });
     };
 
-/*
-
-https://etherpad.mozilla.org/yhltaFmC1r
-
-*/
-
     let provideOpenData = function () {
         return Promise.all([
             wm.DataServices.fetchWaterHardness(),
