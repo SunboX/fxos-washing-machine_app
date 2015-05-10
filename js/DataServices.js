@@ -46,9 +46,6 @@ wm.DataServices = (function () {
 
             let [waterResponse, programUuidResponse] = responses;
 
-            console.log(waterResponse);
-            console.log(programUuidResponse);
-
             return Promise.all([
                 wm.WashingMachineApi.setWaterHardness(programUuidResponse.programUuid, waterResponse.water.hardness),
                 wm.WashingMachineApi.setWashingPowder(programUuidResponse.programUuid, {
