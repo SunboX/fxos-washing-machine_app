@@ -6,6 +6,7 @@
 
 * Add Settigs menu
 * Managing the connection to a washing machine (QR code scanning, handshake)
+* Submit current geo location to the washing machine, so it may be used without the app
 * Get used detergent info and provide it to the washing machine
   * First stage: manual input
   * Second stage: scanning the GTIN/EAN code and recieve the info from an Detergents OpenData API
